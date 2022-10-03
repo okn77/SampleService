@@ -158,6 +158,14 @@
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
                     </outputFormats>
+
+                    <targetClasses>
+                        <param>com.example.students.services.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>com.example.students.services.*</param>
+                    </targetTests>
+
                 </configuration>
             </plugin>
 
