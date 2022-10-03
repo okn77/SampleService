@@ -1,0 +1,120 @@
+pipeline {
+  agent any
+
+  environment {
+    deploymentName = "mystudents"
+    containerName = "mystudents-container"
+    serviceName = "mystudents-svc"
+    //imageName = "okn77/sample-service:${GIT_COMMIT}"
+    imageName = "okn77/sample-service:v1"
+    applicationURL="http://mystudentsdemo-demo.xyz.com"
+    
+  }
+
+
+  stages {
+      
+      
+       stage('Build') {
+            steps {
+                // Get code from a GitHub repository
+                git url: 'https://github.com/okn77/SampleService.git', branch: 'main',
+                 credentialsId: 'SampleService'
+            }
+        }
+      
+      
+      
+
+    stage('Build Artifact - Maven') {
+      steps {
+        sh "mvn clean package -DskipTests=true"
+        archive 'target/*.jar'
+      }
+    }
+
+    stage('Unit Tests - JUnit and Jacoco') {
+      steps {
+        sh "mvn test"
+      }
+     post {
+       always {
+         junit 'target/surefire-reports/*.xml'
+         jacoco execPattern: 'target/jacoco.exec'
+       }
+     }
+   }
+    
+    
+    
+         stage('Mutation Tests - PIT') {
+       steps {
+         sh "mvn org.pitest:pitest-maven:mutationCoverage"
+       }
+          post {
+       always {
+               pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+       }
+     }
+       
+     }
+   	
+   	 stage('Vulnerability Scan - Docker') {
+       steps {
+         		sh "mvn dependency-check:check"
+       }
+       
+        post {
+       always {
+            dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+       }
+       
+     }
+   
+   	 }
+   
+   
+   
+   
+    
+   //sudo usermod -a -G docker jenkins
+   //chmod 777 /var/run/docker.sock
+   
+   
+    
+    
+         stage('Docker Build and Push') {
+       steps {
+         withDockerRegistry([credentialsId: "dockerhub", url: ""]) {
+           sh 'printenv'
+           sh 'sudo docker build -t okn77/sample-service:v1 .'
+           sh 'docker push okn77/sample-service:v1'
+         }
+       }
+     }
+    
+
+ 
+       stage('K8S Deployment - PROD') {
+       steps {
+         parallel(
+           "Deployment": {
+             withKubeConfig([credentialsId: 'kubeconfig']) {
+          //     sh "sed -i 's#replace#${imageName}#g' students.yaml"
+               sh "kubectl -n prod  apply -f students.yaml"
+             }
+           },
+    //       "Rollout Status": {
+    //         withKubeConfig([credentialsId: 'kubeconfig']) {
+        //       sh "sampleservice_rolloutstatus.sh"
+        //     }
+        //   }
+         )
+       }
+     }
+ 
+    
+
+    
+  }
+} 
