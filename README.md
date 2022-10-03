@@ -26,7 +26,7 @@ cd my-git-project
 
 
 
-PIT Mutation Testing is an open-source fault-finding software testing tool for Java that introduces bugs into the code on purpose and then checks if the test suite can find them or not. PIT is created by Henry Coles, a software developer based in Edinburgh, but has benefited from contributions from numerous others
+__PIT Mutation Testing__ is an open-source fault-finding software testing tool for Java that introduces bugs into the code on purpose and then checks if the test suite can find them or not. PIT is created by Henry Coles, a software developer based in Edinburgh, but has benefited from contributions from numerous others
 
 
 
@@ -87,7 +87,11 @@ pom.xml
 
 ```
 
-OWASP_DependencyCheck
+
+## OWASP Dependency-Check 
+
+Dependency-Check is a utility that identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities. This tool can be part of the solution to the OWASP Top 10 2017: A9 - Using Components with Known Vulnerabilities. This plug-in can independently execute a Dependency-Check analysis and visualize results.
+
 
  stage('Vulnerability Scan') {
        steps {
@@ -118,4 +122,10 @@ OWASP_DependencyCheck
    
    
    ```
+
+
+We can also refactor jenkins pipeline post method.
+
+
+
 
