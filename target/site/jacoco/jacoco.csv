@@ -1,0 +1,15 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+students,com.example.students.services,StudentServiceImpl,53,0,0,0,14,0,5,0,5,0
+students,com.example.students.services,ReservationServiceImpl,72,0,0,0,16,0,3,0,3,0
+students,com.example.students.services,LectureServiceImpl,50,0,2,0,12,0,5,0,4,0
+students,com.example.students.dto,LectureRequest,74,0,0,0,19,0,10,0,10,0
+students,com.example.students,StudentsApplication,5,3,0,0,2,1,1,1,1,1
+students,com.example.students.exception,ControllerExceptionHandler,15,7,0,0,4,2,2,2,2,2
+students,com.example.students.exception,StudentNotFoundException,3,0,0,0,1,0,1,0,1,0
+students,com.example.students.exception,LectureNotFoundException,3,0,0,0,1,0,1,0,1,0
+students,com.example.students.entity,Lecture,26,0,0,0,12,0,6,0,6,0
+students,com.example.students.entity,Student,11,15,0,0,6,6,3,3,3,3
+students,com.example.students.entity,AbstractEntity,10,0,0,0,4,0,3,0,3,0
+students,com.example.students.entity,Reservation,24,0,0,0,10,0,7,0,7,0
+students,com.example.students.utility,samplesonar1,77,0,6,0,24,0,13,0,10,0
+students,com.example.students.controller,StudentRestController,58,17,0,0,11,6,6,4,6,4

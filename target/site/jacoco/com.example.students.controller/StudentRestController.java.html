@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StudentRestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">students</a> &gt; <a href="index.source.html" class="el_package">com.example.students.controller</a> &gt; <span class="el_source">StudentRestController.java</span></div><h1>StudentRestController.java</h1><pre class="source lang-java linenums">package com.example.students.controller;
+
+import com.example.students.entity.Lecture;
+import com.example.students.entity.Student;
+import com.example.students.services.LectureServiceImpl;
+import com.example.students.services.StudentServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RestController
+@CrossOrigin
+@RequestMapping(&quot;MySpringBootWeb&quot;)
+<span class="fc" id="L18">public class StudentRestController {</span>
+
+<span class="fc" id="L20">	private static final Logger LOGGER = LoggerFactory.getLogger(StudentRestController.class);</span>
+
+	@Autowired
+	StudentServiceImpl studentService;
+
+	@Autowired
+	LectureServiceImpl lectureService;
+
+
+	@RequestMapping(&quot;/hello&quot;)
+	public String sayHello() {
+
+<span class="fc" id="L32">		return &quot;Hello&quot;;</span>
+
+	}
+	@RequestMapping(&quot;/initiate&quot;)
+	public String initiateStudents() {
+<span class="nc" id="L37">		studentService.initStudent();</span>
+<span class="nc" id="L38">		lectureService.initLecture();</span>
+<span class="nc" id="L39">		return &quot;Students&amp;Lectures created&quot;;</span>
+
+	}
+
+
+
+
+	@GetMapping(&quot;students&quot;)
+	public List&lt;Student&gt; getStudents() {
+<span class="fc" id="L48">		List&lt;Student&gt; getStudents = null;</span>
+<span class="fc" id="L49">		getStudents=studentService.findAllStudents();</span>
+<span class="fc" id="L50">		return getStudents;</span>
+
+	}
+
+	@GetMapping(&quot;lectures&quot;)
+	public List&lt;Lecture&gt; getLectures() {
+<span class="nc" id="L56">		List&lt;Lecture&gt; getlectures = null;</span>
+<span class="nc" id="L57">		getlectures=lectureService.findAllLectures();</span>
+<span class="nc" id="L58">		return getlectures;</span>
+
+	}
+
+
+	@GetMapping(&quot;/students/{id}&quot;)
+	public Student findStudent(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L65">		return studentService.findStudentById(id).orElse(null);</span>
+
+	}
+
+	@GetMapping(&quot;/lectures/{id}&quot;)
+	public Lecture findLecture(@PathVariable(&quot;id&quot;) Long id) {
+
+<span class="nc" id="L72">		return lectureService.findLectureById(id).orElse(null);</span>
+
+	}
+
+	@RequestMapping(&quot;/greet&quot;)
+	private String greet(String greet) {
+<span class="nc" id="L78">		return &quot;hi  &quot;+greet;</span>
+	}
+
+
+
+
+	@RequestMapping(value=&quot;/save&quot;,method=RequestMethod.POST)
+	public String saveStudent(@RequestBody Student student) {
+<span class="nc" id="L86">		studentService.addNewStudent(student);</span>
+<span class="nc" id="L87">		return &quot;created student &quot; + student.getStudentName();</span>
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
