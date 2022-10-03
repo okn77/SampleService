@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk/openjdk8
 EXPOSE 4444
 ARG JAR_FILE=target/students-0.0.1-SNAPSHOT.jar
 ADD ${JAR_FILE} students-0.0.1-SNAPSHOT.jar
