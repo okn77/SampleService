@@ -160,10 +160,10 @@
                     </outputFormats>
 
                     <targetClasses>
-                        <param>com.example.students.services.*</param>
+                        <param>com.example.students.controller.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>com.example.students.services.*</param>
+                        <param>com.example.students.controller.*</param>
                     </targetTests>
 
                 </configuration>
