@@ -136,7 +136,11 @@ It is a simple and comprehensive vulnerability scanner for containers and other 
 
 __CVE__:Common Vulnerabilities and Exposures
 
+The tool can be used like sonarqube
 
+   ```
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock  -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy:0.32.1 python:3.4-alpine
+   ```
 
 
 
