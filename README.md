@@ -83,14 +83,14 @@ pom.xml
 
 
 
+## OWASP Dependency-Check 
 
+Dependency-Check is a utility that identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities. This tool can be part of the solution to the OWASP Top 10 2017: A9 - Using Components with Known Vulnerabilities. This plug-in can independently execute a Dependency-Check analysis and visualize results.
 
 ```
 
 
-## OWASP Dependency-Check 
 
-Dependency-Check is a utility that identifies project dependencies and checks if there are any known, publicly disclosed, vulnerabilities. This tool can be part of the solution to the OWASP Top 10 2017: A9 - Using Components with Known Vulnerabilities. This plug-in can independently execute a Dependency-Check analysis and visualize results.
 
 
  stage('Vulnerability Scan') {
