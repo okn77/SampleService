@@ -143,6 +143,7 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Ca
 
    ```
 
+Blue Ocean plugin is used to monitor parallel running builds.
 
 
 
