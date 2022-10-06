@@ -16,9 +16,15 @@ spec:
       labels:
         app: students
     spec:
+      volumes:
+      - name: myvol
+        emptyDir: {}
       serviceAccountName: default
       containers:
         - name: students
+          volumeMounts:
+          - mountPath: /tmp
+            name: myvol
           image: okn77/sample-service:v1
           imagePullPolicy: "Always"
           securityContext:
