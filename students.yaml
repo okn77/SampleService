@@ -37,7 +37,7 @@ spec:
           image: okn77/sample-service:v1
           imagePullPolicy: "Always"
           securityContext:
-          runAsNonRoot: true
-          runAsUser: 100
-          readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 100
+            readOnlyRootFilesystem: true
    
