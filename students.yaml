@@ -16,6 +16,7 @@ spec:
       labels:
         app: students
     spec:
+      serviceAccountName: default
       containers:
         - name: students
           image: okn77/sample-service:v1
