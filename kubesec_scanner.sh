@@ -12,7 +12,7 @@ scan_score=$(curl -sSX POST --data-binary @"students.yaml" https://v2.kubesec.io
    
    echo "Kubesec score : $scan_score"
 
-	if [[ "${scan_score}" -ge 6 ]]; then
+	if [[ "${scan_score}" -ge 5 ]]; then
 	    echo "Score is $scan_score"
 	    echo "Kubesec Scan $scan_message"
 		exit 0;
