@@ -148,3 +148,20 @@ Blue Ocean plugin is used to monitor parallel running builds.
 
 
 
+
+## Kubesec
+
+Kubesec is an open-source Kubernetes security scanner and analysis tool. The way it works, it accepts a single Kubernetes manifests file and provides a severity score for each found vulnerability.   https://kubesec.io/
+With Docker image , or curl
+
+   ```
+ curl -sSX POST --data-binary @"students.yaml" https://v2.kubesec.io/scan
+   ```
+
+
+
+
+
+
+
+
