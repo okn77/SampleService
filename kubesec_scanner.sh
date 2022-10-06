@@ -15,8 +15,15 @@ scan_score=$(curl -sSX POST --data-binary @"${deploymentfilename}" https://v2.ku
 	if [[ "${scan_score}" -ge 6 ]]; then
 	    echo "Score is $scan_score"
 	    echo "Kubesec Scan $scan_message"
+		exit 0;
 	else
 	    echo "Score is $scan_score, is >= 6."
 	    echo "Scanning Kubernetes Resource has failed!!"
 	    exit 1;
 	fi;
+	
+	
+# using kubesec docker image for scanning
+# scan_result=$(docker run -i kubesec/kubesec:512c5e0 scan /dev/stdin < students.yaml)
+# scan_message=$(docker run -i kubesec/kubesec:512c5e0 scan /dev/stdin < students.yaml | jq .[].message -r)
+# scan_score=$(docker run -i kubesec/kubesec:512c5e0 scan /dev/stdin < students.yaml | jq .[].score)	
