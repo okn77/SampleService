@@ -1,0 +1,127 @@
+pipeline {
+  agent any
+
+  environment {
+    deploymentName = "students"
+    containerName = "mystudents-container"
+    namespace= "prod"
+    serviceName = "mystudents-svc"
+    //imageName = "okn77/sample-service:${GIT_COMMIT}"
+    imageName = "okn77/sample-service:v1"
+    applicationURL="http://mystudentsdemo-demo.xyz.com"
+    
+  }
+
+
+  stages {
+      
+      
+       stage('Build') {
+            steps {
+                // Get code from a GitHub repository
+                git url: 'https://github.com/okn77/SampleService.git', branch: 'main',
+                 credentialsId: 'SampleService'
+            }
+        }
+      
+      
+      
+
+    stage('Build Artifact - Maven') {
+      steps {
+        sh "mvn clean package -DskipTests=true"
+        archive 'target/*.jar'
+      }
+    }
+
+  
+    
+    
+    
+       	 stage('Vulnerability Scan - Docker') {
+       steps {
+         parallel(
+         	"Dependency Scan": {
+         		sh "mvn dependency-check:check"
+	 		},
+	 		"Trivy Scan":{
+	 			sh "bash trivy_scan.sh"
+	 		}
+	 		,
+	 		"OPA Conftest":{
+				sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy OpaDockerSecurityCheck.rego Dockerfile'
+	 		}   	
+       	)
+       }
+     }
+  
+
+  
+  
+   
+   
+   
+   
+    
+   
+   
+   
+    
+    
+         stage('Docker Build and Push') {
+       steps {
+         withDockerRegistry([credentialsId: "dockerhub", url: ""]) {
+           sh 'printenv'
+           sh 'sudo docker build -t okn77/sample-service:v1 .'
+           sh 'docker push okn77/sample-service:v1'
+         }
+      }
+     }
+    
+
+ 
+       stage('K8S Deployment - PROD') {
+       steps {
+         parallel(
+           "Deployment": {
+             withKubeConfig([credentialsId: 'kubeconfig']) {
+          //     sh "sed -i 's#replace#${imageName}#g' students.yaml"
+               sh "kubectl -n prod  apply -f students.yaml"
+             }
+             
+           
+           }
+         )
+       }
+     }
+ 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+//stages
+  }
+  
+  
+   //post { 
+//         always { 
+    //       junit 'target/surefire-reports/*.xml'
+    //       jacoco execPattern: 'target/jacoco.exec'
+    //       pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+    //       dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+    
+//         }
+//}
+  
+  
+} 
