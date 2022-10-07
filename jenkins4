@@ -1,0 +1,135 @@
+
+
+pipeline {
+  agent any
+
+  environment {
+    deploymentfilename= "students.yaml"  
+    deploymentName = "students"
+    containerName = "mystudents-container"
+    namespace= "prod"
+    
+    //imageName = "okn77/sample-service:${GIT_COMMIT}"
+    imageName = "okn77/sample-service:v1"
+    applicationURI= "/MySpringBootWeb/hello"
+    applicationURL= "http://192.168.0.11"
+    serviceName= "students"
+    
+  }
+  
+  
+   stages {
+       
+       
+           stage('Build') {
+            steps {
+                // Get code from a GitHub repository
+                git url: 'https://github.com/okn77/SampleService.git', branch: 'main',
+                 credentialsId: 'SampleService'
+            }
+        }
+       
+       
+       
+       
+         stage('Docker Build and Push') {
+       steps {
+         withDockerRegistry([credentialsId: "dockerhub", url: ""]) {
+           sh 'printenv'
+           sh 'sudo docker build -t okn77/sample-service:v1 .'
+           sh 'docker push okn77/sample-service:v1'
+         }
+      }
+     }
+       
+       
+       
+       
+       stage('K8S Deployment - PROD') {
+       steps {
+         parallel(
+           "Deployment": {
+             withKubeConfig([credentialsId: 'kubeconfig']) {
+          //     sh "sed -i 's#replace#${imageName}#g' students.yaml"
+               sh "kubectl   apply -f students.yaml --record"
+             }
+           },
+          "Rollout Status": {
+            withKubeConfig([credentialsId: 'kubeconfig']) {
+               sh "bash sampleservice_rolloutstatus.sh"
+             }
+           }
+         )
+       }
+     }
+       
+       
+       
+   
+     
+     
+    
+    
+    
+         stage('Integration Tests - DEV') {
+       steps {
+         script {
+           try {
+             withKubeConfig([credentialsId: 'kubeconfig']) {
+               sh "bash integrationtest.sh"
+            }
+           } catch (e) {
+             withKubeConfig([credentialsId: 'kubeconfig']) {
+               sh "kubectl -n prod rollout undo deploy ${deploymentName}"
+             }
+             throw e
+           }
+         }
+       }
+     }
+    
+     
+    
+    
+    stage('OWASP ZAP - DAST') {
+       steps {
+         withKubeConfig([credentialsId: 'kubeconfig']) {
+           sh 'bash zap.sh'
+         }
+       }
+     }
+     
+     
+     
+     
+     
+     
+     
+     
+     
+//stages
+  }
+  
+  
+  
+    post { 
+     
+      always { 
+     
+          publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML Report', reportTitles: 'OWASP ZAP HTML Report'])
+        
+        
+ 	
+         }
+
+   
+        
+    }
+  
+  
+  
+}
+  
+     
+     
+     
