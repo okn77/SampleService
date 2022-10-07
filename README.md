@@ -161,6 +161,16 @@ With Docker image , or curl
 
 
 
+## OWASP-ZAP
+
+OWASP ZAP is an open-source web application security scanner. It is intended to be used by both those new to application security as well as professional penetration testers. It is one of the most active Open Web Application Security Project projects and has been given Flagship status.
+
+https://springdoc.org/
+//Worker node sudo ufw allow 31932/tcp
+curl  192.168.0.11:31932/MySpringBootWeb/hello  
+
+
+
 
 
 
