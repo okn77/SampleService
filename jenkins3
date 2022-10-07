@@ -1,0 +1,76 @@
+pipeline {
+  agent any
+
+  environment {
+    deploymentfilename= "students.yaml"  
+    deploymentName = "students"
+    containerName = "mystudents-container"
+    namespace= "prod"
+    serviceName = "mystudents-svc"
+    //imageName = "okn77/sample-service:${GIT_COMMIT}"
+    imageName = "okn77/sample-service:v1"
+    applicationURL="http://mystudentsdemo-demo.xyz.com"
+    
+  }
+  
+  
+   stages {
+       
+       
+           stage('Build') {
+            steps {
+                // Get code from a GitHub repository
+                git url: 'https://github.com/okn77/SampleService.git', branch: 'main',
+                 credentialsId: 'SampleService'
+            }
+        }
+       
+       
+       
+       stage('K8S Deployment - PROD') {
+       steps {
+         parallel(
+           "Deployment": {
+             withKubeConfig([credentialsId: 'kubeconfig']) {
+          //     sh "sed -i 's#replace#${imageName}#g' students.yaml"
+               sh "kubectl -n prod  apply -f students.yaml"
+             }
+           }
+       
+         )
+       }
+     }
+     
+     
+    
+    
+        stage('K8-Vulnerability-Scan') {
+       steps {
+         parallel(
+           "OPA Scan": {
+             sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy k8security_opa.rego students.yaml'
+           }
+           ,
+           "Kubesec Scan": {
+             sh "bash kubesec_scanner.sh"
+           }
+           ,
+           "Trivy Scan": {
+             sh "bash trivy-k8.sh"
+           }
+         )
+       }
+     }
+    
+     
+     
+     
+//stages
+  }
+  
+  
+}
+  
+     
+     
+     
