@@ -1,0 +1,25 @@
+@Library('myslacknew') _
+
+pipeline {
+    agent any
+    stages {
+   
+            
+            
+     stage('Build') {
+            steps {
+                // Get code from a GitHub repository
+                git url: 'https://github.com/okn77/SampleService.git', branch: 'main',
+                 credentialsId: 'SampleService'
+            }
+        }
+            
+            
+        }
+    post{
+        always{
+          //  slackSend channel: '#mydevops', message: 'build suceeded', color: "good", tokenCredentialId: 'myslacktoken'
+          sendNotification currentBuild.result
+        }
+    }
+}
