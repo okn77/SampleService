@@ -180,5 +180,12 @@ DAST Dynamic application Security Testing. Tests are done when the application i
 
 
 ##  CIS Benchmarks  
-Center for Internet Security best practice security recommendations
-kube-bench is a go application  that  checks whether kubernetes is deployed securely.
+Center for Internet Security best practice security recommendations.kube-bench is a go application  that  checks whether kubernetes is deployed securely.
+
+__Kube-Bench__: An Open Source Tool for Running Kubernetes CIS Benchmark Tests
+
+https://github.com/aquasecurity/kube-bench/blob/main/docs/installation.md#download-and-install-binaries
+
+With the docker image:
+ docker run --rm -v `pwd`:/host docker.io/aquasec/kube-bench:latest install
+ 
