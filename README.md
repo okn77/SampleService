@@ -171,6 +171,7 @@ curl  192.168.0.11:31932/MySpringBootWeb/hello
 
 
 
+For slack messages with groovy place sendNotification.groovy inside vars folder.
 
 
 
