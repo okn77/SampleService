@@ -188,4 +188,12 @@ https://github.com/aquasecurity/kube-bench/blob/main/docs/installation.md#downlo
 
 With the docker image:
  docker run --rm -v `pwd`:/host docker.io/aquasec/kube-bench:latest install
+ or
+ 
+ wget https://github.com/aquasecurity/kube-bench/releases/download/v0.6.5/kube-bench_0.6.5_linux_amd64.tar.gz
+tar -xvf kube-bench_0.6.5_linux_amd64.tar.gz
+./kube-bench --config-dir cfg --config cfg/config.yaml
+
+
+ 
  
