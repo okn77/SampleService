@@ -176,4 +176,4 @@ For slack messages with groovy place sendNotification.groovy inside vars folder.
 
 ##  DAST
 SAST Static  application Security Testing SonarQube 
-DAST Dynamic application Security Testing. Tests are done when the application is running
+DAST Dynamic application Security Testing. Tests are done when the application is running. It attacks app from outside and checks misconfigured configurations.
