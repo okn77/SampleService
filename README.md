@@ -32,7 +32,7 @@ It is an open-source fault-finding software testing tool for Java that introduce
 
 
 
-```
+
 Mutation Test
 
 
@@ -124,7 +124,7 @@ Review the mutation #1 again. To fail (kill) this test (mutation), we should tes
 
 Done, 100% mutation coverage now.
 
-
+```
 
    stage('Mutation Test - PIT') {
        steps {
