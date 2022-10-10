@@ -284,6 +284,12 @@ With the docker image:
 tar -xvf kube-bench_0.6.5_linux_amd64.tar.gz
 ./kube-bench --config-dir cfg --config cfg/config.yaml
 
+etcd user creation: 
+chown etcd:etcd /var/lib/etcd
+useradd etcd
+
+
+
 
  
  
