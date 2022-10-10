@@ -174,5 +174,6 @@ curl  192.168.0.11:31932/MySpringBootWeb/hello
 For slack messages with groovy place sendNotification.groovy inside vars folder.
 
 
-
-
+##  DAST
+SAST Static  application Security Testing SonarQube 
+DAST Dynamic application Security Testing. Tests are done when the application is running
