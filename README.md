@@ -36,6 +36,96 @@ It is an open-source fault-finding software testing tool for Java that introduce
 Mutation Test
 
 
+Sample Method:
+```
+public boolean isPositive(int number) {
+
+        boolean result = false;
+        if (number >= 0) {
+            result = true;
+        }
+        return result;
+        
+    }
+```
+1st mutation
+```
+
+public boolean isPositive(int number) {
+
+        boolean result = false;
+		// mutator - changed conditional boundary
+        if (number > 0) {
+            result = true;
+        }
+        return result;
+        
+    }
+
+```
+2nd mutation
+```
+public boolean isPositive(int number) {
+
+        boolean result = false;
+		// mutator - negated conditional
+        if (false) {
+            result = true;
+        }
+        return result;
+        
+    }
+    
+```
+
+3rd mutation
+```
+public boolean isPositive(int number) {
+
+        boolean result = false;
+        if (number > 0) {
+            result = true;
+        }
+		
+		// mutator - (x == 0 ? 1 : 0)
+        return !result;
+        
+    }
+    
+```
+
+ A Good unit test should fail (kill) all the mutations #1,#2,#3.
+``` 
+ @Test
+    public void testPositive() {
+
+        CalculatorService obj = new CalculatorService();
+        assertEquals(true, obj.isPositive(10));
+
+    }
+ 
+ ```
+  
+ The above unit test will kill the mutation #2 and #3 (unit test is failed), but the mutation #1 is survived (unit test is passed).
+Review the mutation #1 again. To fail (kill) this test (mutation), we should test the conditional boundary, the number zero.
+
+```
+
+@Test
+    public void testPositive() {
+
+        CalculatorService obj = new CalculatorService();
+        assertEquals(true, obj.isPositive(10));
+		//kill mutation #1
+        assertEquals(true, obj.isPositive(0));
+
+    }
+```
+
+Done, 100% mutation coverage now.
+
+
+
    stage('Mutation Test - PIT') {
        steps {
          sh "mvn org.pitest:pitest-maven:mutationCoverage"
