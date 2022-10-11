@@ -1,6 +1,14 @@
 # SampleService
 
 
+sudo ufw allow 6443/tcp
+sudo ufw allow 2379:2380/tcp
+sudo ufw allow 10250/tcp
+sudo ufw allow 10259/tcp
+sudo ufw allow 10257/tcp
+
+
+
 # Talisman  Not able to catch pass.txt :)  It checks before commiting the code
 
 Talisman is a tool that installs a hook to your repository to ensure that potential secrets or sensitive information do not leave the developer's workstation.
@@ -311,6 +319,14 @@ Falco is an  open source runtime security project for cloud. It detects unexpect
 runtime.It is based on rules which trigger alerts. A shell script running or executing a docker image file with kubectl exec command it detects and alerts us default
 FalcosideKick UI we can see the visualized alerts.
 
+
+Extend Falco outputs with falcosidekick
+
+https://falco.org/docs/getting-started/installation/
+
+https://falco.org/blog/extend-falco-outputs-with-falcosidekick/
+
+Join notifications by Slack
 
 
 
