@@ -30,11 +30,21 @@ spec:
           image: okn77/sample-service:v1
           imagePullPolicy: "Always"
           securityContext:
+            capabilities:
+              drop:
+               - NET_RAW
             runAsNonRoot: true
             runAsUser: 100
             readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
    
-   
+          resources:
+           requests:
+            memory: "256Mi"
+            cpu: "200m"
+           limits:
+            memory: "512Mi"
+            cpu: "500m"
    
  
 
