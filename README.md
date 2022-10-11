@@ -280,9 +280,18 @@ With the docker image:
  docker run --rm -v `pwd`:/host docker.io/aquasec/kube-bench:latest install
  or
  
- wget https://github.com/aquasecurity/kube-bench/releases/download/v0.6.5/kube-bench_0.6.5_linux_amd64.tar.gz
+wget https://github.com/aquasecurity/kube-bench/releases/download/v0.6.5/kube-bench_0.6.5_linux_amd64.tar.gz
+ 
 tar -xvf kube-bench_0.6.5_linux_amd64.tar.gz
+
+
 ./kube-bench --config-dir cfg --config cfg/config.yaml
+
+sudo ./kube-bench run --config-dir cfg --config cfg/config.yaml  --targets etcd  --version 1.15 --check 2.2 --json | jq .Totals.total_fail
+
+
+sudo ./kube-bench --config-dir cfg --config cfg/config.yaml master  --version 1.15 --check 4.2.1,4.2.2 --json | jq .[].total_fail
+
 
 etcd user creation: 
 chown etcd:etcd /var/lib/etcd
