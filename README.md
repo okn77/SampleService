@@ -300,5 +300,18 @@ useradd etcd
 
 
 
+
+Sample request for Istio
+
+while true; do curl -s http://192.168.0.11:31932//MySpringBootWeb/students; sleep 1;done
+
+
+
+
+
+
+
+
+
  
  
