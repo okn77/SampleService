@@ -341,7 +341,7 @@ https://github.com/octarinesec/kube-scan
  
  
  
-With blueocean plugin we can write scripts and get the failde stage name
+With blueocean plugin we can write scripts and get the failde stage name with the help of groovy
 
 ```
 /////// ******************************* Code for fectching Failed Stage Name ******************************* ///////
