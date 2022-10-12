@@ -388,4 +388,18 @@ pipeline {
 
  ```
  
+##  HashiCorp Vault 
+Kubernetes secrets are base64 format.Encyrpt etcd data is the first way of securing data.
+HashiCorp Vault: is another way. Vault is a tool for securely accessing secrets
+git clone --branch v0.16.0 https://github.com/hashicorp/vault-helm.git
+
+ ```
+ helm repo add hashicorp https://helm.releases.hashicorp.com
  
+ helm search repo hashicorp/vault
+ 
+helm install vault --set='ui.enabled=true' ./vault-helm
+
+helm install vault --set='ui.enabled=true' ./vault-helm  --set='ui.serviceType=NodePort' --set='server.dataStorage.enabled=false'
+ 
+  ```
