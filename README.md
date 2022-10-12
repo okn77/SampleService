@@ -428,9 +428,13 @@ existing unseal keys shares. See "vault operator rekey" for more information.
 vault operator unseal FnPgm3tsCYfYIGnOWsj5sKIRsiXiMGfAVuEllJbqJOin
 vault operator unseal gZvoViwmfW1Q40Y7my/pbnDLMQk6hRdKpvhFC0F6deVo
 vault operator unseal xAieZhyBZiomsVUQ+N8cbSuCOIFpNkHulkl7Q822GbuU
+
+
+//use Initial Root Token and then exit
+
+vault login s.kncOkJzgMBVDWumi57xrPs04
  
- 
-  ```
+```
   
   
   
