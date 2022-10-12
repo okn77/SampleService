@@ -449,5 +449,30 @@ vault kv metadata get crds/postgresql
 
 Vault-Authorization
 
+```  
+cat <<EOF > /home/vault/myapp-policy.hcl
+path "crds/data/postgresql" {
+capabilities = ["create", "update"]
+}
+path "crds/data/postgresql" {
+capabilities = ["read"]
+}
+EOF
+
+
+kubectl exec -it vault-0 -- /bin/sh
+vault policy write app /home/vault/myapp-policy.hcl
+
+vault policy list
+vault policy read app
+
+export VAULT_TOKEN="$(vault token create -field token -policy=app)"
+echo $VAULT_TOKEN
+vault kv put crds/postgresql username=hello
+
+
+```  
+
+Vault-Authentication
 
 
