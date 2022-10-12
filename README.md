@@ -476,3 +476,30 @@ vault kv put crds/postgresql username=hello
 Vault-Authentication
 
 
+```  
+kubectl exec -it vault-0 -- /bin/sh
+vault login s.kncOkJzgMBVDWumi57xrPs04
+vault auth enable kubernetes
+
+vault write auth/kubernetes/config \
+token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+kubernetes_host=https://${KUBERNETES_PORT_443_TCP_ADDR}:443 \
+kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+
+
+
+vault write auth/kubernetes/role/javaapp \
+bound_service_account_names=app \
+bound_service_account_namespaces=demo \
+policies=app \
+ttl=1h
+
+exit
+
+
+kubectl describe clusterrolebinding vault-server-binding
+
+```  
+
+
