@@ -333,8 +333,7 @@ Join notifications by Slack
 
 https://github.com/octarinesec
 
-
-
+https://github.com/octarinesec/kube-scan
 
  
  
