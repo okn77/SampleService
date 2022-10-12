@@ -437,12 +437,17 @@ vault operator unseal xAieZhyBZiomsVUQ+N8cbSuCOIFpNkHulkl7Q822GbuU
 vault login s.kncOkJzgMBVDWumi57xrPs04
  
 ```
-
+Creating Vault secrets
 
 ```  
 kubectl exec -it vault-0 -- /bin/sh
 vault secrets enable -path=crds kv-v2
 vault kv get crds/postgresql
 vault kv put crds/postgresql username=myadmin password=123 mykey=hellothere  
+vault kv metadata get crds/postgresql
 ```  
-  
+
+Vault-Authorization
+
+
+
