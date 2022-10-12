@@ -402,4 +402,36 @@ helm install vault --set='ui.enabled=true' ./vault-helm
 
 helm install vault --set='ui.enabled=true' ./vault-helm  --set='ui.serviceType=NodePort' --set='server.dataStorage.enabled=false'
  
+ kubectl exec -it vault-0 -- /bin/sh
+vault operator init
+Unseal Key 1: FnPgm3tsCYfYIGnOWsj5sKIRsiXiMGfAVuEllJbqJOin
+Unseal Key 2: gZvoViwmfW1Q40Y7my/pbnDLMQk6hRdKpvhFC0F6deVo
+Unseal Key 3: xAieZhyBZiomsVUQ+N8cbSuCOIFpNkHulkl7Q822GbuU
+Unseal Key 4: R8Lhmwza5VPTPVf9EjaeMOTZ+zfQ3GI0oCRKtPzDzt2c
+Unseal Key 5: 0d4/CjMXN+eUxfr3NeEn+NJJa3a9BvF+sWELP+eXBZgH
+
+Initial Root Token: s.kncOkJzgMBVDWumi57xrPs04
+
+Vault initialized with 5 key shares and a key threshold of 3. Please securely
+distribute the key shares printed above. When the Vault is re-sealed,
+restarted, or stopped, you must supply at least 3 of these keys to unseal it
+before it can start servicing requests.
+
+Vault does not store the generated master key. Without at least 3 keys to
+reconstruct the master key, Vault will remain permanently sealed!
+
+It is possible to generate new unseal keys, provided you have a quorum of
+existing unseal keys shares. See "vault operator rekey" for more information.
+
+
+
+vault operator unseal FnPgm3tsCYfYIGnOWsj5sKIRsiXiMGfAVuEllJbqJOin
+vault operator unseal gZvoViwmfW1Q40Y7my/pbnDLMQk6hRdKpvhFC0F6deVo
+vault operator unseal xAieZhyBZiomsVUQ+N8cbSuCOIFpNkHulkl7Q822GbuU
+ 
+ 
   ```
+  
+  
+  
+  
