@@ -501,5 +501,34 @@ exit
 kubectl describe clusterrolebinding vault-server-binding
 
 ```  
+Getting vault data from kubernetes :
+```  
+//Nodejs
+npm install --save node-vault-client
+
+const VaultClient = require('node-vault-client');
+
+const vaultClient = VaultClient.boot('main', {
+    api: { url: 'https://vault.example.com:8200/' },
+    auth: { 
+        type: 'appRole', // or 'token', 'iam'
+        config: { role_id: '637c065f-c644-5e12-d3d1-e9fa4363af61' } 
+    },
+});
+
+vaultClient.read('secret/tst').then(v => {
+    console.log(v);
+}).catch(e => console.error(e));
+
+
+//php
+
+$username   = file_get_contents("/vault/secrets/username");
+$pass   = file_get_contents("/vault/secrets/pass");
+
+
+```  
+
+
 
 
