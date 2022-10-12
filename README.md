@@ -392,6 +392,8 @@ pipeline {
 Kubernetes secrets are base64 format.Encyrpt etcd data is the first way of securing data.
 HashiCorp Vault: is another way. Vault is a tool for securely accessing secrets
 git clone --branch v0.16.0 https://github.com/hashicorp/vault-helm.git
+There are 5 keys at least 3 of them come together for constructing master key and for decrypting the encyrption key.
+Keyshare=5 1 Master Key and 1 Encryption key
 
  ```
  helm repo add hashicorp https://helm.releases.hashicorp.com
@@ -435,7 +437,12 @@ vault operator unseal xAieZhyBZiomsVUQ+N8cbSuCOIFpNkHulkl7Q822GbuU
 vault login s.kncOkJzgMBVDWumi57xrPs04
  
 ```
-  
-  
-  
+
+
+```  
+kubectl exec -it vault-0 -- /bin/sh
+vault secrets enable -path=crds kv-v2
+vault kv get crds/postgresql
+vault kv put crds/postgresql username=myadmin password=123 mykey=hellothere  
+```  
   
